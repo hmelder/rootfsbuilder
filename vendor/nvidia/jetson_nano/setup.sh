@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
 
 echo "* Packing payload..."
-tar -cpf payload.tar -C payload .
+
+# Get directory relative to this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+tar -cpf ${DIR}/payload.tar -C payload .
