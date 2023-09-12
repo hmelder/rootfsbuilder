@@ -66,9 +66,12 @@ mkdir /tmp/nvidia-l4t-init
 dpkg-deb -R /tmp/nvidia-l4t-init.deb /tmp/nvidia-l4t-init
 
 rm /tmp/nvidia-l4t-init/etc/systemd/sleep.conf
+rm /tmp/nvidia-l4t-init/etc/wpa_supplicant.conf
 
 # Remove /etc/systemd/sleep.conf entry from DEBIAN/conffiles
 sed -i '/\/etc\/systemd\/sleep.conf/d' /tmp/nvidia-l4t-init/DEBIAN/conffiles
+# Remove /etc/wpa_supplicant.conf entry from DEBIAN/conffiles
+sed -i '/\/etc\/wpa_supplicant.conf/d' /tmp/nvidia-l4t-init/DEBIAN/conffiles
 
 # Repack nvidia-l4t-init
 dpkg-deb -b /tmp/nvidia-l4t-init /tmp/nvidia-l4t-init-modified.deb
