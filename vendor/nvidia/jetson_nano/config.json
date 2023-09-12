@@ -15,6 +15,6 @@
     ],
     "payload": "payload.tar",
     "payload_type": "tar",
-    "post_install_command": "sh /root/post_install.sh",
+    "post_install_command": "sh /root/post-install.sh",
     "use_hosts_resolv_conf": true
 }
