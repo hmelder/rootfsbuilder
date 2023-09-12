@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+echo "From mocked qemu-x86_64-static"
+exit 0

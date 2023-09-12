@@ -1,0 +1,12 @@
+{
+    "config_version": 1,
+    "name": "test",
+    "distribution": "debian",
+    "release": "bookworm",
+    "architecture": "arm64",
+    "variant": "minbase",
+    "mirror": "http://deb.debian.org/debian/",
+    "tarball_type": "tar.gz",
+    "payload": "payload.tar",
+    "payload_type": "tar"
+}

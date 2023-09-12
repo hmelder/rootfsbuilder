@@ -1,0 +1,8 @@
+{
+    "config_version": 1,
+    "name": "test",
+    "architecture": "arm64",
+    "variant": "minbase",
+    "mirror": "http://deb.debian.org/debian/",
+    "tarball_type": "tar.gz"
+}
