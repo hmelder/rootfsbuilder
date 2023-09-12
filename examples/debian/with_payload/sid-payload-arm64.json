@@ -1,0 +1,13 @@
+{
+    "config_version": 1,
+    "name": "Debian Unstable",
+    "distribution": "debian",
+    "release": "unstable",
+    "architecture": "arm64",
+    "variant": "minbase",
+    "mirror": "http://deb.debian.org/debian/",
+    "tarball_type": "tar.gz",
+    "payload": "payload.tar",
+    "payload_type:": "tar",
+    "post_install_command": "sh /root/post-install.sh"
+}
