@@ -10,6 +10,7 @@
     "additional_packages": [
         "ca-certificates",
         "locales",
+        "sudo",
         "wget",
         "i2c-tools",
         "xxd"
