@@ -18,7 +18,9 @@ test:
 	go test ./... -v
 
 install:
+	mkdir -p $(bindir)
 	install -m 755 $(binary_name) $(bindir)/$(binary_name)
+	mkdir -p $(man1dir)
 	install -m 644 $(man_page_src) $(man1dir)/$(man_page_src)
 
 uninstall:
