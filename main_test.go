@@ -1,3 +1,9 @@
+// rootfsbuilder - A simple tool to build Debian/Ubuntu rootfs tarballs
+// Copyright (C) 2023 Hugo Melder
+//
+// SPDX-License-Identifier: MIT
+//
+
 package main
 
 import (
