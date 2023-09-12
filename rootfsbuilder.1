@@ -1,0 +1,40 @@
+.\" Manpage for rootfsbuilder
+.TH rootfsbuilder 1 "12 September 2023" "0.1.0" "User Commands"
+.SH NAME
+rootfsbuilder \- a tool to build root file systems
+.SH SYNOPSIS
+.B rootfsbuilder
+[ --version ]
+[
+.I CONFIG_FILE1
+[
+.I CONFIG_FILE2
+...
+]
+]
+.SH DESCRIPTION
+.B rootfsbuilder
+is a tool designed to build root file systems for distributions based on Debian.
+It takes one or more configuration files as inputs to dictate how the root file system should be built.
+.PP
+This manual page documents version
+.B 0.1.0
+of the
+.B rootfsbuilder
+command.
+.SH OPTIONS
+.TP
+.B --version
+Print the version information of the rootfsbuilder tool and exit.
+.SH EXAMPLES
+.B rootfsbuilder --version
+.br
+Print the version information and exit.
+.PP
+.B rootfsbuilder config1.yaml config2.yaml
+.br
+Run rootfsbuilder with two configuration files: config1.yaml and config2.yaml.
+.SH FILES
+The configuration files are JSON files that dictate how the root file system should be built.
+.SH AUTHOR
+This manual page was written by Hugo Melder <contact@hugomelder.com>.
