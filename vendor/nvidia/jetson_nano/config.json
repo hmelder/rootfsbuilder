@@ -1,0 +1,20 @@
+{
+    "config_version": 1,
+    "name": "Nvidia Jetson Nano",
+    "distribution": "debian",
+    "release": "bookworm",
+    "architecture": "arm64",
+    "variant": "minbase",
+    "mirror": "http://deb.debian.org/debian/",
+    "tarball_type": "tar.gz",
+    "additional_packages": [
+        "ca-certificates",
+        "locales",
+        "i2c-tools",
+        "xxd"
+    ],
+    "payload": "payload.tar",
+    "payload_type": "tar",
+    "post_install_command": "sh /root/post_install.sh",
+    "use_hosts_resolv_conf": "true"
+}
