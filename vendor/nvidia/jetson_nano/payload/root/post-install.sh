@@ -50,12 +50,33 @@ fi
 # Install libffi6 manually as it is not available in the repository anymore
 # but required by nvidia-l4t-wayland, which is a dependency of nvidia-l4t-3d-core.
 
-FFI_URL = "http://deb.debian.org/debian/pool/main/libf/libffi/libffi6_3.2.1-9_arm64.deb"
-
-wget $FFI_URL -O /tmp/libffi6.deb
+wget "http://deb.debian.org/debian/pool/main/libf/libffi/libffi6_3.2.1-9_arm64.deb" -O /tmp/libffi6.deb
 dpkg -i /tmp/libffi6.deb
 
 rm /tmp/libffi6.deb
+
+# DEBIAN PATCHING
+
+# Patch nvidia-l4t-init and remove /etc/systemd/sleep.conf
+# as it conflicts with the systemd package
+
+apt download nvidia-l4t-init
+mv nvidia-l4t-init*.deb /tmp/nvidia-l4t-init.deb
+mkdir /tmp/nvidia-l4t-init
+dpkg-deb -R /tmp/nvidia-l4t-init.deb /tmp/nvidia-l4t-init
+
+rm /tmp/nvidia-l4t-init/etc/systemd/sleep.conf
+
+# Remove /etc/systemd/sleep.conf entry from DEBIAN/conffiles
+sed -i '/\/etc\/systemd\/sleep.conf/d' /tmp/nvidia-l4t-init/DEBIAN/conffiles
+
+# Repack nvidia-l4t-init
+dpkg-deb -b /tmp/nvidia-l4t-init /tmp/nvidia-l4t-init-modified.deb
+rm -rf /tmp/nvidia-l4t-init
+
+dpkg-deb -i /tmp/nvidia-l4t-init-modified.deb
+rm /tmp/nvidia-l4t-init-modified.deb
+
 
 apt install -y \
 nvidia-l4t-cuda \
