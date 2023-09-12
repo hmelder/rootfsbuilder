@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-// Exit Codes
 const (
+	Version         = "0.1.0"
 	ExitCodeOK      = 0
 	ExitCodeFailure = 1
 )
@@ -56,18 +56,38 @@ type ConfigurationV1 struct {
 }
 
 func main() {
+	version := flag.Bool("version", false, "Print version information and exit")
+
+	flag.Usage = func() {
+		fmt.Printf("Usage of rootfsbuilder:\n")
+		fmt.Println("  --version")
+		fmt.Println("    	Print version information and exit")
+		fmt.Println()
+		fmt.Println("  [CONFIG_FILE1, CONFIG_FILE2, ...]")
+		fmt.Println("    	One or more configuration files to be used by the rootfsbuilder")
+		fmt.Println()
+		fmt.Println("Examples:")
+		fmt.Println("  rootfsbuilder --version")
+		fmt.Println("  rootfsbuilder config1.yaml config2.yaml")
+	}
+
 	flag.Parse()
 	nonFlagArgs := flag.Args()
 
-	debArch, err := HostToDebArch()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error while determining host architecture: %s\n", err)
-		os.Exit(ExitCodeFailure)
+	if *version {
+		fmt.Printf("rootfsbuilder version %s\n", Version)
+		os.Exit(ExitCodeOK)
 	}
 
 	// Check Operating System
 	if runtime.GOOS != "linux" {
 		fmt.Fprintf(os.Stderr, "rootfsbuilder must be run on Linux\n")
+		os.Exit(ExitCodeFailure)
+	}
+
+	debArch, err := HostToDebArch()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error while determining host architecture: %s\n", err)
 		os.Exit(ExitCodeFailure)
 	}
 
