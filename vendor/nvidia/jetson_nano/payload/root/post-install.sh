@@ -77,7 +77,7 @@ sed -i '/\/etc\/wpa_supplicant.conf/d' /tmp/nvidia-l4t-init/DEBIAN/conffiles
 dpkg-deb -b /tmp/nvidia-l4t-init /tmp/nvidia-l4t-init-modified.deb
 rm -rf /tmp/nvidia-l4t-init
 
-dpkg-deb -i /tmp/nvidia-l4t-init-modified.deb
+dpkg -i /tmp/nvidia-l4t-init-modified.deb
 rm /tmp/nvidia-l4t-init-modified.deb
 
 
