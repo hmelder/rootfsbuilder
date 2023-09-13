@@ -5,3 +5,4 @@ This directory contains vendor-specific configuration files for building root fi
 
 Currently the following configurations are available:
 - Nvidia Jetson Nano (Debian 12 Bookworm) (/vendor/nvidia/jetson_nano)
+  Info: Currently experimental (Issues with OpenCV, and older Dependencies)
