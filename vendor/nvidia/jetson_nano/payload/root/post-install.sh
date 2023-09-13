@@ -101,10 +101,6 @@ fi
 # Remove pre-configuration file
 rm "/opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall"
 
-echo "* Copying dtb into /boot/dtb..."
-mkdir -p /boot/dtb
-cp /boot/kernel_* /boot/dtb
-
 echo "* Finished post installation"
 printf "* Make sure to reconfigure the nvidia packages with
 
