@@ -4,7 +4,6 @@
     "distribution": "debian",
     "release": "bookworm",
     "architecture": "arm64",
-    "variant": "minbase",
     "mirror": "http://deb.debian.org/debian/",
     "tarball_type": "tar.gz",
     "additional_packages": [

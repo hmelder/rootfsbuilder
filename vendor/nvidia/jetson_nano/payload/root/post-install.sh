@@ -101,6 +101,12 @@ fi
 # Remove pre-configuration file
 rm "/opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall"
 
+echo "* Cleaning apt cache..."
+apt clean
+
+echo "* Removing config file..."
+rm /root/post-install.sh
+
 echo "* Finished post installation"
 printf "* Make sure to reconfigure the nvidia packages with
 
