@@ -12,7 +12,8 @@
         "sudo",
         "wget",
         "i2c-tools",
-        "xxd"
+        "xxd",
+	"systemd-timesyncd"
     ],
     "payload": "payload.tar",
     "payload_type": "tar",

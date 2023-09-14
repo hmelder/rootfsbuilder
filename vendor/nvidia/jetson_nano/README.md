@@ -15,7 +15,8 @@ using scetchy shell scripts.
 The default password for the root user is `root`.
 
 ## Building the root filesystem
-The setup script packs the payload into a tar archive (`tar -cpf payload.tar -C payload .`)
+The setup script downloads the Nvidia Jetson Linux drivers and extracts the contents into the payload.
+Then the payload is compressed into a tarball.
 
 ```bash
 ./setup.sh
@@ -23,6 +24,7 @@ rootfsbuilder config.json
 ```
 
 ## Payload Content
+Below the payload content without the Nvidia Jetson Linux drivers, which are added during the setup stage.
 ```
 payload
 ├── boot
