@@ -27,39 +27,15 @@ echo "* Root password set to 'root'"
 
 apt update
 
-# Install nvidia base packages
-apt install -y \
-nvidia-l4t-bootloader \
-nvidia-l4t-configs \
-nvidia-l4t-core \
-nvidia-l4t-firmware \
-nvidia-l4t-gputools \
-nvidia-l4t-init \
-nvidia-l4t-initrd \
-nvidia-l4t-kernel-dtbs \
-nvidia-l4t-kernel-headers \
-nvidia-l4t-kernel
-
-if [ $? -eq 0 ]; then
-    echo "Installation of base Nvidia packages successful"
-else
-    echo "Installation of base Nvidia packages encountered errors. Exiting..."
-    exit 1
-fi
-
-# Install libffi6 manually as it is not available in the repository anymore
-# but required by nvidia-l4t-wayland, which is a dependency of nvidia-l4t-3d-core.
-
-wget "http://deb.debian.org/debian/pool/main/libf/libffi/libffi6_3.2.1-9_arm64.deb" -O /tmp/libffi6.deb
-dpkg -i /tmp/libffi6.deb
-
-rm /tmp/libffi6.deb
+echo "* Installing Nvidia Core package"
+apt install -y nvidia-l4t-core
 
 # DEBIAN PATCHING
 
 # Patch nvidia-l4t-init and remove /etc/systemd/sleep.conf
 # as it conflicts with the systemd package
 
+echo "* Patching nvidia-l4t-init as it provides configuration that is also provided by systemd (Thanks Nvidia)."
 apt download nvidia-l4t-init
 mv nvidia-l4t-init*.deb /tmp/nvidia-l4t-init.deb
 mkdir /tmp/nvidia-l4t-init
@@ -80,6 +56,33 @@ rm -rf /tmp/nvidia-l4t-init
 dpkg -i /tmp/nvidia-l4t-init-modified.deb
 rm /tmp/nvidia-l4t-init-modified.deb
 
+# Install nvidia base packages
+apt install -y \
+nvidia-l4t-bootloader \
+nvidia-l4t-configs \
+nvidia-l4t-firmware \
+nvidia-l4t-gputools \
+nvidia-l4t-init \
+nvidia-l4t-initrd \
+nvidia-l4t-kernel-dtbs \
+nvidia-l4t-kernel-headers \
+nvidia-l4t-kernel
+
+if [ $? -eq 0 ]; then
+    echo "Installation of base Nvidia packages successful"
+else
+    echo "Installation of base Nvidia packages encountered errors. Exiting..."
+    exit 1
+fi
+
+# Install libffi6 manually as it is not available in the repository anymore
+# but required by nvidia-l4t-wayland, which is a dependency of nvidia-l4t-3d-core.
+
+echo "* Install libffi6 manually, as libraries depend on it"
+wget "http://deb.debian.org/debian/pool/main/libf/libffi/libffi6_3.2.1-9_arm64.deb" -O /tmp/libffi6.deb
+dpkg -i /tmp/libffi6.deb
+
+rm /tmp/libffi6.deb
 
 apt install -y \
 nvidia-l4t-cuda \
