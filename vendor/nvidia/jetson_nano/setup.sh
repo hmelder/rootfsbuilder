@@ -37,8 +37,11 @@ else
 fi
 
 echo "* Removing /lib as it breaks the rootfs, and move /lib/firmware to /usr/lib (Thanks Nvidia)"
-sudo mv -r ${DIR}/payload/lib/firmware ${DIR}/payload/usr/lib/
+sudo mv ${DIR}/payload/lib/firmware ${DIR}/payload/usr/lib/
 sudo rm -r ${DIR}/payload/lib
+
+echo "* Removing /etc/nv_tegra_release as it conflicts with the nvidia core package"
+sudo rm ${DIR}/payload/etc/nv_tegra_release
 
 echo "* Removing extracted Nvidia drivers tarball..."
 rm -r ${DIR}/Linux_for_Tegra
