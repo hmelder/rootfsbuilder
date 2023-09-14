@@ -110,19 +110,13 @@ rm /root/post-install.sh
 echo "* Finished post installation"
 printf "* Make sure to reconfigure the nvidia packages with
 
-dpkg —reconfigure nvidia-l4t-bootloader \
-nvidia-l4t-configs \
-nvidia-l4t-core \
+dpkg—reconfigure nvidia-l4t-core \
 nvidia-l4t-firmware \
 nvidia-l4t-gputools \
-nvidia-l4t-init \
 nvidia-l4t-initrd \
 nvidia-l4t-kernel-dtbs \
 nvidia-l4t-kernel-headers \
 nvidia-l4t-kernel \
-nvidia-l4t-oem-config \
-nvidia-l4t-tools \
-nvidia-l4t-xusb-firmware
 \n"
 
 echo "* You may experience errors during the reconfiguration process. This is fine ;)"
