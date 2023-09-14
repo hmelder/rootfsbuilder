@@ -24,9 +24,10 @@ fi
 echo "* Extracting Nvidia Jetson Linux Driver Package (BSP)..."
 tar -xjf ${DIR}/jetson.tbz2 -C ${DIR} Linux_for_Tegra/nv_tegra/nvidia_drivers.tbz2
 
+echo "* You might be prompted to enter your password for sudo!"
 echo "* Removing downloaded tarball..."
 rm ${DIR}/jetson.tbz2
-echo "* Extracting Nvidia drivers into payload. You may need to enter your password for root privileges..."
+echo "* Extracting Nvidia drivers into payload"
 sudo tar -xpjf ${DIR}/Linux_for_Tegra/nv_tegra/nvidia_drivers.tbz2 -C ${DIR}/payload
 if [ $? -eq 0 ]; then
     echo "Extraction successful"
@@ -35,9 +36,13 @@ else
     exit 1
 fi
 
+echo "* Removing /lib as it breaks the rootfs, and move /lib/firmware to /usr/lib (Thanks Nvidia)"
+sudo mv -r ${DIR}/payload/lib/firmware ${DIR}/payload/usr/lib/
+sudo rm -r ${DIR}/payload/lib
+
 echo "* Removing extracted Nvidia drivers tarball..."
 rm -r ${DIR}/Linux_for_Tegra
 
 
-echo "* Packing payload.... You may need to enter your password for root privileges..."
+echo "* Packing payload..."
 sudo tar -cvpf ${DIR}/payload.tar -C ${DIR}/payload .
