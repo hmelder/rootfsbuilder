@@ -1,8 +1,43 @@
 #!/usr/bin/env bash
 
-echo "* Packing payload..."
-
 # Get directory relative to this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-tar -cvpf ${DIR}/payload.tar -C ${DIR}/payload .
+# Current Jetson Linux Driver Package (BSP) version
+JL_VERSION_MAJOR="32"
+JL_VERSION_MINOR="7"
+JL_VERSION_PATCH="4"
+JL_VERSION="${JL_VERSION_MAJOR}.${JL_VERSION_MINOR}.${JL_VERSION_PATCH}"
+
+TEGRA_SOC="210"
+BSP_URL="https://developer.nvidia.com/downloads/embedded/l4t/r${JL_VERSION_MAJOR}_release_v${JL_VERSION_MINOR}.${JL_VERSION_PATCH}/t${TEGRA_SOC}/jetson-${TEGRA_SOC}_linux_r${JL_VERSION}_aarch64.tbz2"
+
+echo "* Download latest Nvidia Jetson Linux Driver Package (BSP). Version r${JETSON_LINUX_VERSION}." 
+wget ${BSP_URL} -O ${DIR}/jetson.tbz2
+if [ $? -eq 0 ]; then
+    echo "Download successful"
+else
+    echo "Download failed. Exiting..."
+    exit 1
+fi
+
+echo "* Extracting Nvidia Jetson Linux Driver Package (BSP)..."
+tar -xjf ${DIR}/jetson.tbz2 -C ${DIR} Linux_for_Tegra/nv_tegra/nvidia_drivers.tbz2
+
+echo "* Removing downloaded tarball..."
+rm ${DIR}/jetson.tbz2
+echo "* Extracting Nvidia drivers into payload. You may need to enter your password for root privileges..."
+sudo tar -xpjf ${DIR}/Linux_for_Tegra/nv_tegra/nvidia_drivers.tbz2 -C ${DIR}/payload
+if [ $? -eq 0 ]; then
+    echo "Extraction successful"
+else
+    echo "Extraction failed. Exiting..."
+    exit 1
+fi
+
+echo "* Removing extracted Nvidia drivers tarball..."
+rm -r ${DIR}/Linux_for_Tegra
+
+
+echo "* Packing payload.... You may need to enter your password for root privileges..."
+sudo tar -cvpf ${DIR}/payload.tar -C ${DIR}/payload .
